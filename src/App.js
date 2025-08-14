@@ -75,6 +75,7 @@ import TextForm from './components/TextForm';
 import About from './components/About';
 // import TextForm from './components/About';
 import React, { useState } from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -83,19 +84,15 @@ function App() {
 
   const showAlert = (message, type) => {
     setAlert({ msg: message, type: type });
-    setTimeout(() => {
-      setAlert(null);
-    }, 1500);
+    setTimeout(() => setAlert(null), 1500);
   };
 
   const handleColorChange = (color) => {
     setThemeColor(color);
     if (mode === 'light') {
-      document.body.style.backgroundColor = color.light; // Light mode version
-      
+      document.body.style.backgroundColor = color.light;
     } else {
-      document.body.style.backgroundColor = color.dark; // Dark mode version
-      
+      document.body.style.backgroundColor = color.dark;
     }
     showAlert(`${color.name} theme applied`, "success");
   };
@@ -115,20 +112,22 @@ function App() {
   };
 
   return (
-    <>
+    <Router>
       <Navbar
         title="TextUtils56"
         mode={mode}
         toggleMode={toggleMode}
-        onColorChange={handleColorChange} // Pass handler to Navbar
+        onColorChange={handleColorChange}
       />
       <Alert alert={alert} />
 
       <div className="container my-3">
-        <TextForm showAlert={showAlert} heading="Give input below" mode={mode} />
-        <About    />
+        <Routes>
+          <Route path="/" element={<TextForm showAlert={showAlert} heading="Give input below" mode={mode} />} />
+          {/* <Route path="/about" element={<About />} /> */}
+        </Routes>
       </div>
-    </>
+    </Router>
   );
 }
 

@@ -42,7 +42,7 @@
 // }; 
 
 
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Navbar({ title, mode, toggleMode, onColorChange }) {
   const colors = [
@@ -55,7 +55,16 @@ export default function Navbar({ title, mode, toggleMode, onColorChange }) {
   return (
     <nav className={`navbar navbar-expand-lg navbar-${mode} bg-${mode}`}>
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">{title}</a>
+        <Link className="navbar-brand" to="/">{title}</Link>
+
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <li className="nav-item">
+            <Link className="nav-link" to="/">Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/about">About</Link>
+          </li>
+        </ul>
 
         <div className="d-flex align-items-center">
           {colors.map((c) => (
